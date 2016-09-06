@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Hackeve JS &amp; DOM</title>
+  <style>
+    #content-area {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+    }
+
+    #todo-list, #done-list {
+      flex:1;
+      margin: 5px;
+    } 
+  </style>
+</head>
+<body>
+  <div>
+    <label>
+      Add a new item
+      <input id="new-item-input-field"/>
+    </label>
+    <button onclick="addTodo">Add</button>
+  </div>
+  <hr>
+  <div id="content-area">
+    <section id="todo-list">1</section>
+    <section id="done-list">2</section>
+  </div>
+</body>
+</html>
