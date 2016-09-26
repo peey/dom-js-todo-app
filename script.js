@@ -83,6 +83,12 @@ var refreshUI = function () {
 
 var addTodo = function () {
   let input = document.getElementById("new-item-input-field")
+  
+  // Reject empty todo messages
+  if (input.value === "") {
+    return
+  }
+  
   todoDataIdCounter++
   
   todoData.push({
@@ -90,6 +96,9 @@ var addTodo = function () {
     text: input.value,
     done: false
   })
+  
+  // Reset the input value and make it empty
+  input.value = ""
   
   refreshUI()
 }
@@ -101,4 +110,4 @@ document.addEventListener("DOMContentLoaded", function () {
   
   refreshUI()
 })
-  
+
