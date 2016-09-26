@@ -23,15 +23,44 @@ var markAsDone = function (event) {
   refreshUI()
 }
 
+var showEditBox = function (event) {
+  let id = event.target.getAttribute("todo-id")
+  
+  let editBox = document.getElementById("todo-edit-box")
+  editBox.style.visibility = "visible"
+  
+  let button = editBox.getElementsByTagName("button")[0]
+  
+  let inputBox = editBox.getElementsByTagName("input")[0]
+  
+  inputBox.value = todoData.find((x) => x.id === parseInt(id)).text
+  
+  var handler = function () {
+    editTodo(id, inputBox.value)
+    inputBox.value = ""
+    editBox.style.visibility = "hidden"
+    button.removeEventListener("click", handler)
+  }
+  
+  button.addEventListener("click", handler)
+}
+
 var createTodoListElement = function (data) {
   let todo = document.createElement("li")
+  
   let doneButton = document.createElement("button")
   doneButton.innerHTML = "done"
   doneButton.setAttribute("todo-id", data.id) 
   doneButton.addEventListener("click", markAsDone)
   
+  let editButton = document.createElement("button")
+  editButton.innerHTML = "edit"
+  editButton.setAttribute("todo-id", data.id)
+  editButton.addEventListener("click", showEditBox)
+  
   todo.appendChild(document.createTextNode(data.text))
   todo.appendChild(doneButton)
+  todo.appendChild(editButton)
   
   return todo
 }
@@ -79,6 +108,14 @@ var refreshUI = function () {
   for (let i = 0; i < doneList.length; i++) {
     doneUL.appendChild(createDoneListElement(doneList[i]))
   }
+}
+
+var editTodo = function (id, text) {
+  var found = todoData.find((todo) => todo.id == id)
+  
+  found.text = text
+  
+  refreshUI()
 }
 
 var addTodo = function () {
